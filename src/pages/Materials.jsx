@@ -265,7 +265,8 @@ export default function Materials() {
           {filteredMaterials.map((material) => (
             <div
               key={material.id}
-              className={`card-hover relative overflow-hidden ${
+              onClick={() => navigate(`/course/${material.id}`)}
+              className={`card-hover relative overflow-hidden cursor-pointer ${
                 material.locked ? 'opacity-75' : ''
               }`}
             >
@@ -340,7 +341,10 @@ export default function Materials() {
 
                 {/* Action Button */}
                 <button
-                  onClick={() => navigate(`/course/${material.id}`)}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    navigate(`/course/${material.id}`)
+                  }}
                   className={`w-full ${
                     material.isPurchased
                       ? material.completed

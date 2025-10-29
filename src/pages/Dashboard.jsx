@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { BookOpen, FlaskConical, Calendar, MessageSquare, Award, User, TrendingUp, Clock, AlertCircle, CheckCircle, Bell } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import Navbar from '../components/Navbar'
@@ -7,6 +8,7 @@ import NotificationCenter from '../components/NotificationCenter'
 
 export default function Dashboard() {
   const { user } = useAuth()
+  const navigate = useNavigate()
   const [showNotifications, setShowNotifications] = useState(false)
 
   const stats = [
@@ -119,16 +121,17 @@ export default function Dashboard() {
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">الوصول السريع</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {quickAccessCards.map((card, index) => (
-              <div
+              <button
                 key={index}
-                className="card-hover group overflow-hidden"
+                onClick={() => navigate(card.path)}
+                className="card-hover group overflow-hidden text-right"
               >
                 <div className={`bg-gradient-to-br ${card.color} p-4 rounded-lg mb-4 group-hover:scale-105 transition-transform`}>
                   <card.icon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{card.title}</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">{card.description}</p>
-              </div>
+              </button>
             ))}
           </div>
         </div>
